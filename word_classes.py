@@ -15,6 +15,7 @@
 '''
 import string
 
+
 def get_file(a_file):
     ''' Reads a filename and returns the file object '''
     try:
@@ -30,7 +31,6 @@ def file_to_list(file_object):
         line = line.split()
         for word in line:
             my_list.append(word)
-
     return my_list
 
 def remove_punc(a_list):
@@ -42,21 +42,107 @@ def remove_punc(a_list):
         counter += 1
         if item in punc:
             del temp_list[counter] # Removes item at current index if it is a punctuation
-            counter -= 1 # Counter deducected by 1 to account for the deleted index
-            
+            counter -= 1 # Counter reduced by 1 to account for the deleted index       
     return temp_list
 
+def list_to_dict(a_list):
+    ''' Creates and returns a dictionary from given list.
+        Keys are words from previously given text file. Keys are corresponding tagged counterparts '''
+    my_dict = {}
+    keys_list = []
+    values_list = []
+    counter = 0
+
+    for item in a_list:
+        if counter % 2 == 0:
+            keys_list.append(item)
+            counter += 1
+        else:
+            values_list.append(item)
+            counter += 1
+    
+    my_dict = dict(zip(keys_list,values_list))
+    return my_dict
+
+def sort_dict(a_dict):
+    ''' Sorts the keys from a given dictionary into a new dictionary based on their values.
+       (f=pronoun, s=verb, l=adjective, n=noun,  a=adverb/preposition, s=conjunction, t=numeral)'''
+    f, s, l, n, c, a = [],[],[],[],[],[]
+    my_dict = {}
+    
+    for key,value in a_dict.items():
+        letter = value[0]
+        if letter == "f":
+            f.append(key)
+            if 'f' in my_dict:
+                my_dict['f'].append(key)
+            else:
+                my_dict['f'] = [key]
+        elif letter == "s":
+            s.append(key)
+            if 's' in my_dict:
+                my_dict['s'].append(key)
+            else:
+                my_dict['s'] = [key]
+        elif letter == "l":
+            l.append(key)
+            if 'l' in my_dict:
+                my_dict['l'].append(key)
+            else:
+                my_dict['l'] = [key]
+        elif letter == "n":
+            n.append(key)
+            if 'n' in my_dict:
+                    my_dict['n'].append(key)
+            else:
+                my_dict['n'] = [key]
+        elif letter == "c":
+            c.append(key)
+            if 'c' in my_dict:
+                    my_dict['c'].append(key)
+            else:
+                my_dict['c'] = [key]
+        elif letter == "a":
+            a.append(key)
+            if 'a' in my_dict:
+                    my_dict['a'].append(key)
+            else:
+                my_dict['a'] = [key]
+    #return sorted(f), sorted(s), sorted(l), sorted(n), sorted(c), sorted(a)
+    return my_dict
+
+def get_longest(a_list):
+    ''' Iterates through a list and returns only the longest word inside given list '''
+    longest_word = ''
+    for item in (a_list):
+        if len(item) > len(longest_word):
+            longest_word = item
+    return longest_word
 
 def main():
     filename = input("Enter file name: ")
     file_obj = get_file(filename)
-    word_list = file_to_list(file_obj)
-    print(word_list)
-    new_list = remove_punc(word_list)
-    print(new_list)
-
+    list_a = file_to_list(file_obj)
+    print(list_a)
+    print()
+    list_b = remove_punc(list_a)
+    print(list_b)
+    print()
+    dict_a = list_to_dict(list_b)
+    print(dict_a)
+    print()
+    print()
+    #f, s, l, n, c, a = sort_dict(dict_a)
+    new_dict = sort_dict(dict_a)
+    print(new_dict)
+    
+    #lf,ls,ll = get_longest(f),get_longest(s),get_longest(l)
+    #ln,lc,la = get_longest(n),get_longest(c),get_longest(a)
 
 
 # Main program starts here
 if __name__ == "__main__":
     main()
+
+''' Creates a dictionary from given list.
+        Keys are word categories. Values are sets of words which belong to corresponding category '''
