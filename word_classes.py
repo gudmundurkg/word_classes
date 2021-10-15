@@ -19,7 +19,7 @@ import string
 def get_file(a_file):
     ''' Reads a filename and returns the file object '''
     try:
-        file_object = open(a_file, 'r')
+        file_object = open(a_file, 'r',encoding="utf-8")
         return file_object
     except FileNotFoundError:
         print(f"File {a_file} not found!")
@@ -67,43 +67,43 @@ def list_to_dict(a_list):
 def sort_dict(a_dict):
     ''' Sorts the keys from a given dictionary into a new dictionary based on their values.
        (f=pronoun, s=verb, l=adjective, n=noun,  a=adverb/preposition, s=conjunction, t=numeral)'''
-    f, s, l, n, c, a = [],[],[],[],[],[]
+    # f, s, l, n, c, a = [],[],[],[],[],[]
     my_dict = {}
     
     for key,value in a_dict.items():
-        letter = value[0]
+        letter = value[0] # Sort keys based on first letter of value
         if letter == "f":
-            f.append(key)
+           # f.append(key)
             if 'f' in my_dict:
                 my_dict['f'].append(key)
             else:
                 my_dict['f'] = [key]
         elif letter == "s":
-            s.append(key)
+           # s.append(key)
             if 's' in my_dict:
                 my_dict['s'].append(key)
             else:
                 my_dict['s'] = [key]
         elif letter == "l":
-            l.append(key)
+           # l.append(key)
             if 'l' in my_dict:
                 my_dict['l'].append(key)
             else:
                 my_dict['l'] = [key]
         elif letter == "n":
-            n.append(key)
+           # n.append(key)
             if 'n' in my_dict:
                     my_dict['n'].append(key)
             else:
                 my_dict['n'] = [key]
         elif letter == "c":
-            c.append(key)
+           # c.append(key)
             if 'c' in my_dict:
                     my_dict['c'].append(key)
             else:
                 my_dict['c'] = [key]
         elif letter == "a":
-            a.append(key)
+           # a.append(key)
             if 'a' in my_dict:
                     my_dict['a'].append(key)
             else:
@@ -144,5 +144,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-''' Creates a dictionary from given list.
-        Keys are word categories. Values are sets of words which belong to corresponding category '''
