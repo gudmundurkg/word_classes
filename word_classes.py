@@ -1,18 +1,7 @@
 '''
-1. Les orðin og mörkin inn í lista og prentar hann út
-2. Fjarlægir greinarmerkin úr listanum með því að nota string.punctuation og prentar breyttan listann út.
-3. Býr til uppflettitöflu þar sem:
-        orðflokkar eru lyklar og gildin eru mengi af orðum sem tilheyra viðkomandi orðflokkum. 
-4. Býr til uppflettitöflu þar sem:
-        orðflokkar eru lyklar og gildin eru lengsta orðið (strengur) sem tilheyrir viðkomandi orðflokkum.
-        Ef tvö orð eru jafn löng þá er lengsta orðið það sem kemur fyrr í stafrófinu. 
-5. Prentar út gögnin úr uppflettitöflunni í lið 3 á ákveðin máta sem fram kemur í dæmi hér fyrir neðan.
-        Bæði orðflokkarnir og orðin sem tilheyra sérhverjum orðflokki eru prentuð út í stafrófsröð.  
-        Orðin eru prentuð út í hægri jöfnuðu svæði sem er 20 stafir að breidd.
-6. Prentar út gögnin úr uppflettitöflunni í lið 4 á ákveðin máta sem fram kemur í dæmi hér fyrir neðan.
-        Orðflokkarnir eru prentaðir út í stafrófsröð og lengsta orðið sem tilheyrir sérhverjum orðflokki er prentað út
-        í hægri jöfnuðu svæði sem er 20 stafir að breidd.
+Höfundur: Guðmundur Kristján Guðnason (gudmundurkg20)
 '''
+
 import string
 
 
@@ -20,7 +9,7 @@ def get_file(a_file):
     ''' Reads a filename and returns the file object '''
 
     try:
-        file_object = open(a_file, 'r',encoding="utf-8")
+        file_object = open(a_file, 'r',encoding="utf-8")    
         return file_object
     except FileNotFoundError:
         print(f"File {a_file} not found!")
@@ -66,7 +55,7 @@ def list_to_dict(a_list):
     return my_dict
 
 def get_longest(a_dict):
-    ''' Iterates through a dict. and returns the longest word for each key '''
+    ''' Iterates through a dictionary and returns the longest word for each key '''
 
     longest_dict = {}
     longest_word = ''
@@ -80,30 +69,35 @@ def get_longest(a_dict):
     return longest_dict
 
 def print_class_dict(a_dict):
-    ''' Iterates through given dict. and prints it out with proper formatting '''
+    ''' Prints given dictionary with proper formatting if value pr. key is > 1 '''
+
     for keys,values in sorted(a_dict.items()):
         print(f"{keys}:")
         for i in sorted(values):
             print(f"{i:>20}")
 
-def print_long_dict(a_dict):
-    ''' Iterates through given dict. and prints it out with proper formatting '''
+def print_longest_dict(a_dict):
+    ''' Prints given dictionary with proper formatting if value pr. key is == 1 '''
+
     for keys,values in sorted(a_dict.items()):
         print(f"{keys}:")
         print(f"{values:>20}")
 
 def main():
-    
     filename = input("Enter file name: ")
     file_obj = get_file(filename)
+    print()
     list_a = file_to_list(file_obj)
     print(list_a)
+    print()
     list_b = remove_punc(list_a)
     print(list_b)
+    print()
     word_classes_dict = list_to_dict(list_b)
     print_class_dict(word_classes_dict)
+    print()
     longest_dict = get_longest(word_classes_dict)
-    print_long_dict(longest_dict)
+    print_longest_dict(longest_dict)
     
 # Main program starts here
 if __name__ == "__main__":
